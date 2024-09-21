@@ -1,0 +1,58 @@
+<?php
+// Interface cho động vật
+interface AnimalInterface {
+    public function makeSound(); // phương thức bắt buộc cho các lớp kế thừa
+}
+
+// Abstract class cho động vật
+abstract class Animal implements AnimalInterface {
+    protected $name;
+
+    public function __construct($name) {
+        $this->name = $name;
+    }
+
+    // Phương thức abstract, bắt buộc lớp con phải định nghĩa
+    abstract public function eat();
+
+    // Phương thức không abstract, có thể sử dụng chung cho tất cả lớp con
+    public function sleep() {
+        echo "{$this->name} is sleeping.\n";
+    }
+}
+
+// Lớp cụ thể cho Chó, kế thừa từ lớp Animal
+class Dog extends Animal {
+    public function makeSound() {
+        echo "{$this->name} says: Woof! Woof!\n";
+    }
+
+    public function eat() {
+        echo "{$this->name} is eating dog food.\n";
+    }
+}
+
+// Lớp cụ thể cho Mèo, kế thừa từ lớp Animal
+class Cat extends Animal {
+    public function makeSound() {
+        echo "{$this->name} says: Meow! Meow!\n";
+    }
+
+    public function eat() {
+        echo "{$this->name} is eating cat food.\n";
+    }
+}
+
+// Tạo đối tượng Chó và Mèo
+$dog = new Dog("Buddy");
+$cat = new Cat("Whiskers");
+
+// Gọi các phương thức của đối tượng
+$dog->makeSound();
+$dog->eat();
+$dog->sleep();
+
+$cat->makeSound();
+$cat->eat();
+$cat->sleep();
+?>

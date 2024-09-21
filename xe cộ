@@ -1,0 +1,72 @@
+<?php
+// Interface cho phương tiện giao thông
+interface VehicleInterface {
+    public function startEngine(); // phương thức bắt buộc cho các lớp kế thừa
+    public function stopEngine();
+}
+
+// Abstract class cho phương tiện giao thông
+abstract class Vehicle implements VehicleInterface {
+    protected $brand;
+    protected $model;
+
+    public function __construct($brand, $model) {
+        $this->brand = $brand;
+        $this->model = $model;
+    }
+
+    // Phương thức abstract, bắt buộc lớp con phải định nghĩa
+    abstract public function drive();
+
+    // Phương thức không abstract, có thể sử dụng chung cho tất cả lớp con
+    public function displayInfo() {
+        echo "Vehicle: {$this->brand} {$this->model}\n";
+    }
+}
+
+// Lớp cụ thể cho Xe Ô tô, kế thừa từ lớp Vehicle
+class Car extends Vehicle {
+    public function startEngine() {
+        echo "{$this->brand} {$this->model} engine started.\n";
+    }
+
+    public function stopEngine() {
+        echo "{$this->brand} {$this->model} engine stopped.\n";
+    }
+
+    public function drive() {
+        echo "{$this->brand} {$this->model} is driving.\n";
+    }
+}
+
+// Lớp cụ thể cho Xe Máy, kế thừa từ lớp Vehicle
+class Motorcycle extends Vehicle {
+    public function startEngine() {
+        echo "{$this->brand} {$this->model} engine started.\n";
+    }
+
+    public function stopEngine() {
+        echo "{$this->brand} {$this->model} engine stopped.\n";
+    }
+
+    public function drive() {
+        echo "{$this->brand} {$this->model} is riding.\n";
+    }
+}
+
+// Tạo đối tượng Xe Ô tô và Xe Máy
+$car = new Car("Toyota", "Corolla");
+$motorcycle = new Motorcycle("Honda", "CBR");
+
+// Gọi các phương thức của đối tượng Xe Ô tô
+$car->displayInfo();
+$car->startEngine();
+$car->drive();
+$car->stopEngine();
+
+// Gọi các phương thức của đối tượng Xe Máy
+$motorcycle->displayInfo();
+$motorcycle->startEngine();
+$motorcycle->drive();
+$motorcycle->stopEngine();
+?>

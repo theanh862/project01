@@ -1,0 +1,77 @@
+<?php
+// Interface cho nhân viên trường học
+interface SchoolStaffInterface {
+    public function getDetails(); // phương thức bắt buộc cho các lớp kế thừa
+}
+
+// Abstract class cho nhân viên trường học
+abstract class SchoolStaff implements SchoolStaffInterface {
+    protected $name;
+    protected $age;
+
+    public function __construct($name, $age) {
+        $this->name = $name;
+        $this->age = $age;
+    }
+
+    // Phương thức abstract, bắt buộc lớp con phải định nghĩa
+    abstract public function getRole();
+
+    // Phương thức không abstract, có thể sử dụng chung cho tất cả lớp con
+    public function getDetails() {
+        echo "Name: {$this->name}, Age: {$this->age}\n";
+    }
+}
+
+// Lớp cụ thể cho Giáo viên, kế thừa từ lớp SchoolStaff
+class Teacher extends SchoolStaff {
+    private $subject;
+
+    public function __construct($name, $age, $subject) {
+        parent::__construct($name, $age);
+        $this->subject = $subject;
+    }
+
+    public function getRole() {
+        echo "{$this->name} is a teacher and teaches {$this->subject}.\n";
+    }
+}
+
+// Lớp cụ thể cho Nhân viên , kế thừa từ lớp SchoolStaff
+class OfficeStaff extends SchoolStaff {
+    private $department;
+
+    public function __construct($name, $age, $department) {
+        parent::__construct($name, $age);
+        $this->department = $department;
+    }
+
+    public function getRole() {
+        echo "{$this->name} works in the {$this->department} department.\n";
+    }
+}
+
+// Lớp cụ thể cho Hiệu trưởng, kế thừa từ lớp SchoolStaff
+class Principal extends SchoolStaff {
+    public function getRole() {
+        echo "{$this->name} is the principal of the school.\n";
+    }
+}
+
+// Tạo đối tượng Giáo viên, Nhân viên  và Hiệu trưởng
+$teacher = new Teacher("Alice", 30, "Mathematics");
+$officeStaff = new OfficeStaff("Bob", 45, "Administration");
+$principal = new Principal("Mr. John", 50);
+
+// Gọi các phương thức của đối tượng Giáo viên
+$teacher->getDetails();
+$teacher->getRole();
+
+// Gọi các phương thức của đối tượng Nhân viên 
+$officeStaff->getDetails();
+$officeStaff->getRole();
+
+// Gọi các phương thức của đối tượng Hiệu trưởng
+$principal->getDetails();
+$principal->getRole();
+?>

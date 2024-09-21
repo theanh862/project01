@@ -1,0 +1,77 @@
+<?php
+
+// Định nghĩa interface Shape
+interface Shape {
+    public function calculateArea();
+    public function calculatePerimeter();
+}
+
+// Định nghĩa abstract class GeometricShape implement từ interface Shape
+abstract class GeometricShape implements Shape {
+    protected $color;
+
+    public function __construct($color = "undefined") {
+        $this->color = $color;
+    }
+
+    public function getColor() {
+        return $this->color;
+    }
+
+    // Khai báo lại các phương thức từ interface
+    abstract public function calculateArea();
+    abstract public function calculatePerimeter();
+
+    // Thêm một phương thức khác
+    public function describe() {
+        return "This shape is of color " . $this->getColor();
+    }
+}
+
+// Lớp Circle kế thừa từ GeometricShape
+class Circle extends GeometricShape {
+    private $radius;
+
+    public function __construct($radius, $color = "undefined") {
+        parent::__construct($color);
+        $this->radius = $radius;
+    }
+
+    public function calculateArea() {
+        return pi() * pow($this->radius, 2);
+    }
+
+    public function calculatePerimeter() {
+        return 2 * pi() * $this->radius;
+    }
+}
+
+// Lớp Square kế thừa từ GeometricShape
+class Square extends GeometricShape {
+    private $side;
+
+    public function __construct($side, $color = "undefined") {
+        parent::__construct($color);
+        $this->side = $side;
+    }
+
+    public function calculateArea() {
+        return pow($this->side, 2);
+    }
+
+    public function calculatePerimeter() {
+        return 4 * $this->side;
+    }
+}
+
+// Sử dụng lớp Circle
+$circle = new Circle(5, "red");
+echo "Circle Area: " . $circle->calculateArea() . "\n"; // Output: Circle Area: 78.539816339745
+echo "Circle Perimeter: " . $circle->calculatePerimeter() . "\n"; // Output: Circle Perimeter: 31.415926535897
+echo $circle->describe() . "\n"; // Output: This shape is of color red
+
+// Sử dụng lớp Square
+$square = new Square(4, "blue");
+echo "Square Area: " . $square->calculateArea() . "\n"; // Output: Square Area: 16
+echo "Square Perimeter: " . $square->calculatePerimeter() . "\n"; // Output: Square Perimeter: 16
+echo $square->describe() . "\n"; // Output: This shape is of color blue
